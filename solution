@@ -1,0 +1,48 @@
+import pdfplumber
+import json
+
+def parse_resume(pdf_path):
+    with pdfplumber.open(pdf_path) as pdf:
+        text = ""
+        for page in pdf.pages:
+            text += page.extract_text()
+
+    # Here, you would need to implement logic to extract specific sections from the text.
+    # For simplicity, we will use placeholder values.
+    resume_data = {
+        "Personal Information": {
+            "Name": "John Doe",
+            "Contact": "john.doe@example.com",
+            "Phone": "123-456-7890"
+        },
+        "Education": [
+            {
+                "Degree": "B.Tech",
+                "Major": "Computer Science",
+                "Institution": "XYZ University",
+                "Year": "2024"
+            }
+        ],
+        "Experience": [
+            {
+                "Title": "Software Intern",
+                "Company": "ABC Corp",
+                "Duration": "June 2023 - August 2023",
+                "Responsibilities": "Worked on various software development projects."
+            }
+        ],
+        "Skills": ["Python", "Machine Learning", "Data Analysis"],
+        "Projects": [
+            {
+                "Title": "AI-driven Medical Assistance Model",
+                "Description": "Predicts the type of fracture on upper body bones."
+            }
+        ]
+    }
+
+    return json.dumps(resume_data, indent=4)
+
+# Usage
+pdf_path = "path_to_resume.pdf"
+resume_json = parse_resume(pdf_path)
+print(resume_json)
